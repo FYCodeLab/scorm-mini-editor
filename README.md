@@ -168,10 +168,18 @@ Key modules:
 
 ## Deployment
 
-GitHub Actions (`.github/workflows/deploy.yml`) runs tests, builds, and
-deploys `dist/` to GitHub Pages on every push to `main`. Vite is configured
-with `base: '/scorm-mini-editor/'`. The repository's Pages source must be
-set to *GitHub Actions* (done once in repository settings).
+Deployment today: GitHub Pages is served from the `gh-pages` branch,
+which holds the built site (`dist/`). Vite is configured with
+`base: '/scorm-mini-editor/'`.
+
+Intended automation: `.github/workflows/deploy.yml` (kept in the working
+tree) runs tests, builds, and deploys `dist/` to GitHub Pages on every
+push to `main`. That workflow file could not be pushed with the current
+GitHub token, which lacks the `workflow` scope — GitHub refuses workflow
+file pushes from OAuth apps without it. Until the token is re-authorised
+with `workflow` scope (or the workflow is added via the GitHub web UI),
+redeploy by rebuilding locally and pushing `dist/` to `gh-pages`.
+The repository's Pages source is currently set to the `gh-pages` branch.
 
 ## Screenshots
 
